@@ -1,83 +1,82 @@
 {% extends "layout.html" %}
 {% block content %}
+    <section class="hero-wrap js-fullheight">
+     <div class="container">
+        <div class="row description js-fullheight align-items-center justify-content-center">
+          <div class="col-md-8 text-center">
+            <div class="text">
+              <h1>Match Result</h1>
+            </div>
+          </div>
+        </div>
+     </div>
 
-	<section class="hero-wrap js-fullheight">
-	 <div class="container">
-		<div class="row description js-fullheight align-items-center justify-content-center">
-		  <div class="col-md-8 text-center">
-			<div class="text">
-			  <h1>Match Result</h1>
-			</div>
-		  </div>
-		</div>
-	 </div>
-
-	<section class="ftco-section">
-	  <div class="container">
-		<div class="row">
-		  <div class="col-md-12 heading-title">
-			<h1 class="text-center">Dataset 1</h1>
-		  </div>
-		</div>
-		<div class="table-responsive tableFixHead">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 heading-title">
+            <h1 class="text-center">Dataset 1</h1>
+          </div>
+        </div>
+        <div class="table-responsive tableFixHead">
           <table class="table table-striped custom-table">
             <thead>
               <tr>
-			    {% for feature in matcher.left_data.df.columns: %}
+                {% for feature in matcher.left_data.df.columns: %}
                   <th scope="col">
-				    {{ feature }}
-				  </th>
-			    {% endfor %}
+                    {{ feature }}
+                  </th>
+                {% endfor %}
               </tr>
             </thead>
             <tbody>
-		      {% for entity in matcher.left_data.df[matcher.left_data.df.columns.values].iterrows(): %}
+              {% for entity in matcher.left_data.df[matcher.left_data.df.columns.values].iterrows(): %}
                 <tr scope="row">
-			      {% for feature in matcher.left_data.df.columns: %}
+                  {% for feature in matcher.left_data.df.columns: %}
                     <td>
-				      {{ dict(entity[1])[feature] }}
+                      {{ dict(entity[1])[feature] }}
                     </td>
-			      {% endfor %}
+                  {% endfor %}
                 </tr>
-		      {% endfor %}
+              {% endfor %}
             </tbody>
           </table>
-		</div>
-	  </div>
-	</section>
+        </div>
+      </div>
+    </section>
 
-	<section class="ftco-section bg-light">
-	  <div class="container">
-		<div class="row">
-		  <div class="col-md-12 heading-title">
-			<h1 class="text-center">Dataset 2</h1>
-		  </div>
-		</div>
-		<div class="table-responsive tableFixHead">
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 heading-title">
+            <h1 class="text-center">Dataset 2</h1>
+          </div>
+        </div>
+        <div class="table-responsive tableFixHead">
           <table class="table table-striped custom-table">
             <thead>
               <tr>
-			    {% for feature in matcher.right_data.df.columns: %}
+                {% for feature in matcher.right_data.df.columns: %}
                   <th scope="col">
-				    {{ feature }}
-				  </th>
-			    {% endfor %}
+                    {{ feature }}
+                  </th>
+                {% endfor %}
               </tr>
             </thead>
             <tbody>
-		      {% for entity in matcher.right_data.df[matcher.right_data.df.columns.values].iterrows(): %}
+              {% for entity in matcher.right_data.df[matcher.right_data.df.columns.values].iterrows(): %}
                 <tr scope="row">
-			      {% for feature in matcher.right_data.df.columns: %}
+                  {% for feature in matcher.right_data.df.columns: %}
                     <td>
-				      {{ dict(entity[1])[feature] }}
+                      {{ dict(entity[1])[feature] }}
                     </td>
-			      {% endfor %}
+                  {% endfor %}
                 </tr>
-		      {% endfor %}
+              {% endfor %}
             </tbody>
           </table>
-		</div>
-	  </div>
-	</section>
+        </div>
+      </div>
+    </section>
 
 {% endblock %}

@@ -15,40 +15,6 @@
 	 </div>
 	</section>
 
-	<section class="ftco-section bg-light">
-	  <div class="container">
-		<div class="row">
-		  <div class="col-md-12 heading-title">
-			<h1 class="text-center">Dataset 2</h1>
-		  </div>
-		</div>
-		<div class="table-responsive tableFixHead">
-          <table class="table table-striped custom-table">
-            <thead>
-              <tr>
-			    {% for feature in matcher.right_data.df.columns: %}
-                  <th scope="col">
-				    {{ feature }}
-				  </th>
-			    {% endfor %}
-              </tr>
-            </thead>
-            <tbody>
-		      {% for entity in matcher.right_data.df[matcher.right_data.df.columns.values].iterrows(): %}
-                <tr scope="row">
-			      {% for feature in matcher.right_data.df.columns: %}
-                    <td>
-				      {{ dict(entity[1])[feature] }}
-                    </td>
-			      {% endfor %}
-                </tr>
-		      {% endfor %}
-            </tbody>
-          </table>
-		</div>
-	  </div>
-	</section>
-
 	<section class="ftco-section ftco-section-2 bg-primary" id="carousel">
 			<div class="container">
 				<div class="row justify-content-center">
