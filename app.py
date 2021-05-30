@@ -22,5 +22,6 @@ def match():
     matcher = start_match()
     return render_template('match.html', matcher=matcher)
 
+
 if __name__ == '__main__':
    app.run(debug=True)

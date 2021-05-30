@@ -26,7 +26,7 @@ def start_match():
                         query2)
     dataset2 = mysql.read()
 
-    title = Title(value='product_title', weight=1)
+    title = Title(value='product_title', weight=0.5)
 
     mapping_features = MappingFeature()
     mapping_features.join_features = [title]
@@ -37,12 +37,12 @@ def start_match():
                      'gold', 'rose', 'space', 'handset', 'only', 'mobile phone', 'phone',
                      'smartphone', 'in', 'mobile', 'single', 'cm', '4g', '4.7', '5.5', '5.8']
 
-    data_preprocessor = DefaultDataPreprocessor(stopwords=stopwords)
+    data_preprocessor = DefaultDataPreprocessor()
     # tokenizer = DefaultTokenizer()
-    vectorizer = TFIDFVectorizer(max_df=0.7, min_df=0.01, ngram_range=(1,3))
+    vectorizer = TFIDFVectorizer(max_df=0.7, min_df=0.01, stop_words=stopwords, ngram_range=(1,3))
     # vectorizer = COUNTVectorizer(max_df=0.7, min_df=0.01, ngram_range=(1,3))
     similarity_scorer = Cosine_Similarity()
-    cluster = HierarchicalClustering(threshold=0.35)
+    cluster = HierarchicalClustering(threshold=0.5)
     # cluster = KMeansClustering(n_clusters=11)
 
     m = Matcher(data_preprocessor=data_preprocessor,
