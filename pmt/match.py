@@ -1,10 +1,11 @@
-from base.structures.data import MappingFeature, Title
-from base.utils.readers import CSVReader, MySQLReader
+from base.structures.data import MappingFeature
+from base.utils.readers import MySQLReader
 from base.preprocess.data_preprocessor import DefaultDataPreprocessor
-from base.scores.vectorizers import TFIDFVectorizer, COUNTVectorizer
+from base.scores.vectorizers import TFIDFVectorizer
 from base.scores.similarities import Cosine_Similarity
-from base.matchs.clusters import HierarchicalClustering, KMeansClustering
+from base.scores.clusters import HierarchicalClustering
 from base.matchs.matchers import Matcher
+from pmt.data import Title
 import environ
 
 env = environ.Env()
