@@ -4,12 +4,12 @@ from base.preprocess.data_preprocessor import DefaultDataPreprocessor
 from base.scores.vectorizers import TFIDFVectorizer
 from base.scores.similarities import Cosine_Similarity
 from base.scores.clusters import HierarchicalClustering
-from base.matchs.matchers import Matcher
+from base.match.matcher import Matcher
 from pmt.data import Title
 import environ
 
 env = environ.Env()
-environ.Env.read_env()
+environ.Env.read_env(env_file='.env')
 
 def start_match():
     query1 = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 1 AND cluster_id < 11"
