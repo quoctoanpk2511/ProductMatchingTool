@@ -1,4 +1,4 @@
-from base.structures.data import MappingFeature
+from base.structures.data import MappingFeature, Dataset
 from base.utils.readers import MySQLReader
 from base.preprocess.data_preprocessor import DefaultDataPreprocessor
 from base.scores.vectorizers import TFIDFVectorizer
@@ -10,6 +10,51 @@ import environ
 
 env = environ.Env()
 environ.Env.read_env(env_file='.env')
+
+def load_data():
+    query1 = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 1 AND cluster_id < 11"
+    mysql = MySQLReader(env('DATABASE_HOST'),
+                        env('DATABASE_USER'),
+                        env('DATABASE_PASSWORD'),
+                        env('DATABASE_NAME'),
+                        query1)
+    dataset1 = mysql.read()
+    query2 = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 0 AND cluster_id < 11"
+    mysql = MySQLReader(env('DATABASE_HOST'),
+                        env('DATABASE_USER'),
+                        env('DATABASE_PASSWORD'),
+                        env('DATABASE_NAME'),
+                        query2)
+    dataset2 = mysql.read()
+    return dataset1, dataset2
+
+def load_features():
+    title = Title(field_name='product_title', weight=1)
+    mapping_features = MappingFeature()
+    mapping_features.join_features = [title]
+    mapping_features.left_features = ['product_title']
+    mapping_features.right_features = ['product_title']
+    return mapping_features
+
+def matching(max_df, min_df, min_ngram, max_ngram, threshold):
+    dataset1, dataset2 = load_data()
+    mapping_features = load_features()
+    stopwords = ['black', 'white', 'grey', 'silver', 'unlocked', 'sim', 'free', 'water', 'dust', 'resistant', 'by',
+                 'gold', 'rose', 'space', 'handset', 'only', 'mobile phone', 'phone',
+                 'smartphone', 'in', 'mobile', 'single', 'cm', '4g', '4.7', '5.5', '5.8']
+    data_preprocessor = DefaultDataPreprocessor()
+    vectorizer = TFIDFVectorizer(max_df=max_df, min_df=min_df, stop_words=stopwords, ngram_range=(min_ngram, max_ngram))
+    similarity_scorer = Cosine_Similarity()
+    cluster = HierarchicalClustering(threshold=threshold)
+
+    m = Matcher(data_preprocessor=data_preprocessor,
+                vectorizer=vectorizer,
+                similarity=similarity_scorer,
+                cluster=cluster)
+    m.add_data(dataset1, dataset2, mapping_features)
+    m.match()
+    return m
+
 
 def start_match():
     query1 = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 1 AND cluster_id < 11"
@@ -27,7 +72,7 @@ def start_match():
                         query2)
     dataset2 = mysql.read()
 
-    title = Title(value='product_title', weight=0.5)
+    title = Title(field_name='product_title', weight=1)
 
     mapping_features = MappingFeature()
     mapping_features.join_features = [title]
@@ -39,15 +84,11 @@ def start_match():
                      'smartphone', 'in', 'mobile', 'single', 'cm', '4g', '4.7', '5.5', '5.8']
 
     data_preprocessor = DefaultDataPreprocessor()
-    # tokenizer = DefaultTokenizer()
     vectorizer = TFIDFVectorizer(max_df=0.7, min_df=0.01, stop_words=stopwords, ngram_range=(1,3))
-    # vectorizer = COUNTVectorizer(max_df=0.7, min_df=0.01, ngram_range=(1,3))
     similarity_scorer = Cosine_Similarity()
     cluster = HierarchicalClustering(threshold=0.5)
-    # cluster = KMeansClustering(n_clusters=11)
 
     m = Matcher(data_preprocessor=data_preprocessor,
-                # tokenizer=tokenizer,
                 vectorizer=vectorizer,
                 similarity=similarity_scorer,
                 cluster=cluster)

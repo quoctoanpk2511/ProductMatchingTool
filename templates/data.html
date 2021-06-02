@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+
+	<section class="hero-wrap js-fullheight">
+	 <div class="container">
+		<div class="row description js-fullheight align-items-center justify-content-center">
+		  <div class="col-md-8 text-center">
+			<div class="text">
+			  <h1>Dataset</h1>
+			</div>
+		  </div>
+		</div>
+	 </div>
+	</section>
+
+	<section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 heading-title">
+            <h1 class="text-center">Dataset 1</h1>
+          </div>
+        </div>
+        <div class="table-responsive tableFixHead">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                {% for feature in left_data.df.columns: %}
+                  <th scope="col">
+                    {{ feature }}
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for entity in left_data.df[left_data.df.columns.values].iterrows(): %}
+                <tr scope="row">
+                  {% for feature in left_data.df.columns: %}
+                    <td>
+                      {{ dict(entity[1])[feature] }}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="container" style="margin-top: 50px">
+        <div class="row">
+          <div class="col-md-12 heading-title">
+            <h1 class="text-center">Dataset 2</h1>
+          </div>
+        </div>
+        <div class="table-responsive tableFixHead">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                {% for feature in right_data.df.columns: %}
+                  <th scope="col">
+                    {{ feature }}
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for entity in right_data.df[right_data.df.columns.values].iterrows(): %}
+                <tr scope="row">
+                  {% for feature in right_data.df.columns: %}
+                    <td>
+                      {{ dict(entity[1])[feature] }}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
