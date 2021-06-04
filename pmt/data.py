@@ -1,5 +1,5 @@
 from base.structures.data import Feature
-from pmt.tokenizers import TitleTokenizer, PriceTokenizer
+from pmt.preprocess.tokenizers import TitleTokenizer
 
 
 class Title(Feature):

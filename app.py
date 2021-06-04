@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from pmt.match import start_match, matching, load_data
+from pmt.match import matching, load_data
 
 
 app = Flask(__name__)
