@@ -1,4 +1,4 @@
-from base.structures.data import Feature
+from matchingframework.structures.data import Feature
 from pmt.preprocess.tokenizers import TitleTokenizer
 
 

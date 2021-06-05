@@ -1,4 +1,4 @@
-from base.scores.similarities import SimilarityScorer
+from matchingframework.scores.similarities import SimilarityScorer
 
 from sklearn.metrics.pairwise import cosine_similarity
 class Cosine_Similarity(SimilarityScorer):

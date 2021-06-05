@@ -1,4 +1,4 @@
-from base.scores.clusters import Clustering
+from matchingframework.scores.clusters import Clustering
 
 from scipy.cluster.hierarchy import linkage, fcluster
 class HierarchicalClustering(Clustering):

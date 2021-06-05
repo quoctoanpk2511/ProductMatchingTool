@@ -1,4 +1,4 @@
-from base.scores.vectorizers import FrequencyVectorizer
+from matchingframework.scores.vectorizers import FrequencyVectorizer
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 class TFIDFVectorizer(FrequencyVectorizer):

@@ -1,4 +1,4 @@
-from base.utils.writers import FileWriter, DBWriter
+from matchingframework.utils.writers import FileWriter, DBWriter
 import sqlalchemy
 
 class CSVWriter(FileWriter):

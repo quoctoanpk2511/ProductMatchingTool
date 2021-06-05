@@ -1,4 +1,4 @@
-from base.preprocess.tokenizers import Tokenizer
+from matchingframework.preprocess.tokenizers import Tokenizer
 import re
 
 class TitleTokenizer(Tokenizer):

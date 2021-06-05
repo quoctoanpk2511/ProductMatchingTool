@@ -1,10 +1,10 @@
-from base.structures.data import MappingFeature
+from matchingframework.structures.data import MappingFeature
+from matchingframework.preprocess.data_preprocessor import DataPreprocessor
+from matchingframework.match.matcher import Matcher
 from pmt.utils.readers import MySQLReader
-from base.preprocess.data_preprocessor import DataPreprocessor
 from pmt.scores.vectorizers import TFIDFVectorizer
 from pmt.scores.similarities import Cosine_Similarity
-from pmt.scores.clusters import HierarchicalClustering, KMeansClustering
-from base.match.matcher import Matcher
+from pmt.scores.clusters import HierarchicalClustering
 from pmt.data import Title
 import environ
 

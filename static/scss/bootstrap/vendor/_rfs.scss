@@ -38,10 +38,10 @@ $rfs-safari-iframe-resize-bug-fix: false !default;
 // Disable RFS by setting $enable-responsive-font-sizes to false
 $enable-responsive-font-sizes: true !default;
 
-// Cache $rfs-base-font-size unit
+// Cache $rfs-matchingframework-font-size unit
 $rfs-base-font-size-unit: unit($rfs-base-font-size);
 
-// Remove px-unit from $rfs-base-font-size for calculations
+// Remove px-unit from $rfs-matchingframework-font-size for calculations
 @if $rfs-base-font-size-unit == "px" {
   $rfs-base-font-size: $rfs-base-font-size / ($rfs-base-font-size * 0 + 1);
 }
