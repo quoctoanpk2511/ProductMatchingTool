@@ -3,19 +3,19 @@ from matchingframework.preprocess.data_preprocessor import DataPreprocessor
 from matchingframework.match.matcher import Matcher
 from pmt.utils.readers import MySQLReader
 from pmt.scores.vectorizers import TFIDFVectorizer
-from pmt.scores.similarities import Cosine_Similarity
+from pmt.scores.similarities import CosineSimilarityScorer
 from pmt.scores.clusters import HierarchicalClustering
-from pmt.data import Title
+from pmt.structures.data import Title
 import environ
 
 env = environ.Env()
 environ.Env.read_env(env_file='.env')
 
-def load_data():
-    query = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 1 AND cluster_id < 11"
+def load_data(left_table, right_table):
+    query = "SELECT * FROM {} WHERE category_id = 2612 AND product_id % 2 = 1 AND cluster_id < 11".format(left_table)
     mysql = MySQLReader(env('DATABASE_HOST'), env('DATABASE_USER'), env('DATABASE_PASSWORD'), env('DATABASE_NAME'), query)
     dataset1 = mysql.read()
-    query = "SELECT * FROM `product-clustering`.product WHERE category_id = 2612 AND product_id % 2 = 0 AND cluster_id < 11"
+    query = "SELECT * FROM {} WHERE category_id = 2612 AND product_id % 2 = 0 AND cluster_id < 11".format(right_table)
     mysql = MySQLReader(env('DATABASE_HOST'), env('DATABASE_USER'), env('DATABASE_PASSWORD'), env('DATABASE_NAME'), query)
     dataset2 = mysql.read()
     return dataset1, dataset2
@@ -28,15 +28,15 @@ def load_features():
     mapping_features.right_features = ['product_title']
     return mapping_features
 
-def matching(max_df, min_df, min_ngram, max_ngram, threshold):
-    dataset1, dataset2 = load_data()
+def matching(left_table, right_table, threshold):
+    dataset1, dataset2 = load_data(left_table, right_table)
     mapping_features = load_features()
     stopwords = ['black', 'white', 'grey', 'silver', 'unlocked', 'sim', 'free', 'water', 'dust', 'resistant', 'by',
                  'gold', 'rose', 'space', 'handset', 'only', 'mobile phone', 'phone',
                  'smartphone', 'in', 'mobile', 'single', 'cm', '4g', '4.7', '5.5', '5.8']
     data_preprocessor = DataPreprocessor()
-    vectorizer = TFIDFVectorizer(max_df=max_df, min_df=min_df, stop_words=stopwords, ngram_range=(min_ngram, max_ngram))
-    similarity_scorer = Cosine_Similarity()
+    vectorizer = TFIDFVectorizer(max_df=0.7, min_df=0.01, stop_words=stopwords, ngram_range=(1, 3))
+    similarity_scorer = CosineSimilarityScorer()
     cluster = HierarchicalClustering(threshold=threshold)
 
     m = Matcher(data_preprocessor=data_preprocessor,

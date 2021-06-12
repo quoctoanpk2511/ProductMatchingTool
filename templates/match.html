@@ -1,39 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
     <section class="hero-wrap js-fullheight">
-     <div class="container">
+      <div class="container">
         <div class="row description js-fullheight align-items-center justify-content-center">
           <div class="col-md-6 text-center">
             <div class="card card-login py-4">
               <form id="form1" class="form-login" method="post" action="/match">
                 <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Set Params</h4>
+                  <h4 class="card-title">Input</h4>
                 </div>
                 <!-- <p class="description text-center">Or Be Classical</p> -->
                 <div class="card-body p-4">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
-                        <i class="ion-ios-contact"></i>
-                      </span>
-                    </div>
-                    <input type="number" step="0.1" min="0" max="1" class="form-control" name="max_df" placeholder="max_df...">
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="ion-ios-paper-plane"></i>
-                      </span>
-                    </div>
-                    <input type="number" step="0.01" class="form-control" name="min_df" placeholder="min_df...">
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
                         <i class="ion-ios-lock"></i>
                       </span>
                     </div>
-                    <input type="number" class="form-control" name="min_ngram" placeholder="min_ngram...">
+                    <input type="text" class="form-control" name="left_table" placeholder="left table name...">
                   </div>
 				  <div class="input-group mb-3">
 				    <div class="input-group-prepend">
@@ -41,7 +25,7 @@
 					    <i class="ion-ios-paper-plane"></i>
 					  </span>
 				    </div>
-				    <input type="number" class="form-control" name="max_ngram" placeholder="max_ngram...">
+				    <input type="text" class="form-control" name="right_table" placeholder="right table name...">
 				  </div>
 				  <div class="input-group mb-3">
 				    <div class="input-group-prepend">
@@ -59,7 +43,8 @@
             </div>
           </div>
         </div>
-     </div>
+      </div>
+    </section>
 
     {% if matcher %}
     <section class="ftco-section bg-light">
@@ -96,7 +81,5 @@
       </div>
     </section>
     {% endif %}
-
-
 
 {% endblock %}

@@ -17,21 +17,30 @@ def about():
 def themes():
     return render_template('themes.html')
 
-@app.route('/data')
+@app.route('/data', methods=['GET','POST'])
 def data():
-    left_data, right_data = load_data()
-    return render_template('data.html', left_data=left_data, right_data=right_data)
+    if request.method == 'POST':
+        try:
+            left_table = request.form.get('left_table')
+            right_table = request.form.get('right_table')
+            left_data, right_data = load_data(left_table, right_table)
+            print(left_table)
+            return render_template('data.html', left_data=left_data, right_data=right_data)
+        except:
+            return render_template('page-500.html')
+    elif request.method == 'GET':
+        return render_template('data.html', left_data=None, right_data=None)
+    else:
+        return render_template('page-404.html', right_data=None)
 
 @app.route('/match', methods=['GET','POST'])
 def match():
     if request.method == 'POST':
         try:
-            max_df = request.form.get('max_df', type=float)
-            min_df = request.form.get('min_df', type=float)
-            min_ngram = request.form.get('min_ngram', type=int)
-            max_ngram = request.form.get('max_ngram', type=int)
+            left_table = request.form.get('left_table')
+            right_table = request.form.get('right_table')
             threshold = request.form.get('threshold', type=float)
-            matcher = matching(max_df, min_df, min_ngram, max_ngram, threshold)
+            matcher = matching(left_table, right_table, threshold)
             return render_template('match.html', matcher=matcher)
         except:
             return render_template('page-500.html')
