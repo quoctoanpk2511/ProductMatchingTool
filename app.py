@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from pmt.match import matching, load_data
+from pmt.match import matching, load_data, update_cluster
 
 
 app = Flask(__name__)
@@ -17,35 +17,24 @@ def about():
 def themes():
     return render_template('themes.html')
 
-@app.route('/data', methods=['GET','POST'])
+@app.route('/data', methods=['GET'])
 def data():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
-            left_table = request.form.get('left_table')
-            right_table = request.form.get('right_table')
-            left_data, right_data = load_data(left_table, right_table)
-            print(left_table)
+            left_data, right_data = load_data()
             return render_template('data.html', left_data=left_data, right_data=right_data)
         except:
             return render_template('page-500.html')
-    elif request.method == 'GET':
-        return render_template('data.html', left_data=None, right_data=None)
-    else:
-        return render_template('page-404.html', right_data=None)
 
-@app.route('/match', methods=['GET','POST'])
+@app.route('/match', methods=['GET'])
 def match():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
-            left_table = request.form.get('left_table')
-            right_table = request.form.get('right_table')
-            threshold = request.form.get('threshold', type=float)
-            matcher = matching(left_table, right_table, threshold)
+            matcher = matching()
+            update_cluster(matcher)
             return render_template('match.html', matcher=matcher)
         except:
             return render_template('page-500.html')
-    elif request.method == 'GET':
-        return render_template('match.html', matcher=None)
     else:
         return render_template('page-404.html', matcher=None)
 

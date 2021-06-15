@@ -5,6 +5,6 @@ class CosineSimilarityScorer(SimilarityScorer):
 
     def similarity_score(self, vector_matrix):
         """
-        Compute cosine similarity.
+        Compute cosine similarity distance.
         """
-        return cosine_similarity(vector_matrix)
+        return 1 - cosine_similarity(vector_matrix)

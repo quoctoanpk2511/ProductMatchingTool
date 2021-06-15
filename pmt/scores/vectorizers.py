@@ -9,4 +9,5 @@ class TFIDFVectorizer(FrequencyVectorizer):
                                            ngram_range=self.ngram_range,
                                            stop_words=self.stop_words,
                                            tokenizer=feature.tokenizer.tokenize_record)
-        return vectorizer.fit_transform(feature.tokenizer.normalize(list(records.values())))
+        tfidf_matrix = vectorizer.fit_transform(feature.tokenizer.normalize(list(records.values())))
+        return tfidf_matrix

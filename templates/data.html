@@ -2,41 +2,17 @@
 {% block content %}
 
     <section class="hero-wrap js-fullheight">
-      <div class="container">
-        <div class="row description js-fullheight align-items-center justify-content-center">
-          <div class="col-md-6 text-center">
-            <div class="card card-login py-4">
-              <form id="form1" class="form-login" method="post" action="/data">
-                <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Input</h4>
-                </div>
-                <!-- <p class="description text-center">Or Be Classical</p> -->
-                <div class="card-body p-4">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="ion-ios-lock"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" name="left_table" placeholder="left table name...">
-                  </div>
-				  <div class="input-group mb-3">
-				    <div class="input-group-prepend">
-					  <span class="input-group-text">
-					    <i class="ion-ios-paper-plane"></i>
-					  </span>
-				    </div>
-				    <input type="text" class="form-control" name="right_table" placeholder="right table name...">
-				  </div>
-                <div class="footer text-center">
-                  <button type="submit" class="btn btn-primary">Get Started</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-       </div>
-    </section>
+	 <div class="container">
+		<div class="row description js-fullheight align-items-center justify-content-center">
+		  <div class="col-md-8 text-center">
+			<div class="text">
+			  <h1>Dataset</h1>
+			  <h4 class="mb-5">Two datasets used for matching.</h4>
+			</div>
+		  </div>
+		</div>
+	 </div>
+	</section>
 
 	<section class="ftco-section bg-light">
       {% if left_data %}
@@ -44,6 +20,11 @@
         <div class="row">
           <div class="col-md-12 heading-title">
             <h1 class="text-center">Left Dataset</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="text-center">Total Products: {{ left_data.df.shape[0] }}</h5>
           </div>
         </div>
         <div class="table-responsive tableFixHead">
@@ -78,6 +59,11 @@
         <div class="row">
           <div class="col-md-12 heading-title">
             <h1 class="text-center">Right Dataset</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="text-center">Total Products: {{ right_data.df.shape[0] }}</h5>
           </div>
         </div>
         <div class="table-responsive tableFixHead">

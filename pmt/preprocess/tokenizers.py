@@ -7,18 +7,22 @@ class TitleTokenizer(Tokenizer):
     """
 
     def tokenize_record(self, record):
-        tokens = [word.lower() for word in record.split(' ')]
+        tokens = [word.lower() for word in record.split()]
         return tokens
 
     def normalize_record(self, record):
-        nomalized_record = re.sub('(?<=\d) (?=gb)', '', record)
+        nomalized_record = record
+        nomalized_record = re.sub('\W', ' ', nomalized_record)
         return nomalized_record
 
-class PriceTokenizer(Tokenizer):
+class BrandTokenizer(Tokenizer):
     """
-    Tokenize product price.
+    Tokenize product brand.
     """
+
+    def tokenize_record(self, record):
+        tokens = [record.lower()]
+        return tokens
 
     def normalize_record(self, record):
-        nomalized_record = re.sub('$đ￥', '', record)
-        return nomalized_record
+        return record
