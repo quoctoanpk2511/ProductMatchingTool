@@ -9,17 +9,15 @@ class CSVWriter(FileWriter):
 
 class MySQLWriter(DBWriter):
 
-    def connect(self):
-        return sqlalchemy.create_engine("mysql://{user}:{pw}@{host}/{db}".format(host=self.db_host, db=self.db_name, user=self.db_user, pw=self.db_passwd))
 
-    def connect1(self):
+    def connect(self):
         return MySQLdb.connect(self.db_host, self.db_user, self.db_passwd, self.db_name)
 
     def write(self, table_name):
         self.dataset.df[self.dataset.df.columns.difference(['id_left', 'id_right'])].to_sql(table_name, con=self.connect(), if_exists='append', index=False)
 
     def update(self, table_name, pk):
-        con = self.connect1()
+        con = self.connect()
         cursor = con.cursor()
         cursor.execute("SHOW columns FROM {}".format(table_name))
         if 'match_cluster_id' not in [column[0] for column in cursor.fetchall()]:

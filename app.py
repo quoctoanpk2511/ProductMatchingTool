@@ -13,10 +13,6 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/themes')
-def themes():
-    return render_template('themes.html')
-
 @app.route('/data', methods=['GET'])
 def data():
     if request.method == 'GET':
